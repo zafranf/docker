@@ -22,6 +22,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
     --install-dir=/usr/bin \
     --filename=composer
 
+# INSTALL mongodb ext
+RUN apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev && \
+    pecl install mongodb && \
+    docker-php-ext-enable mongodb
+
 # CLEAR
 RUN apt-get autoremove -y && \
     rm -rf /tmp/*

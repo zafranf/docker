@@ -1,8 +1,8 @@
 version: "3"
 
 services:
-    web:
-        container_name: web
+    nginx:
+        container_name: nginx
         image: nginx:latest
         ports:
             - 80:80
@@ -22,6 +22,8 @@ services:
             - /Volumes/DATA/sites:/var/www/html:cached
         links:
             - mariadb
+            - mongo
+            - redis
         networks:
             - app-network
     mariadb:
@@ -31,6 +33,20 @@ services:
             - 3306:3306
         environment:
             MYSQL_ROOT_PASSWORD: password
+        networks:
+            - app-network
+    mongo:
+        container_name: mongo
+        image: mongo:latest
+        ports: 
+            - 27017:27017
+        networks:
+            - app-network 
+    redis:
+        container_name: redis
+        image: redis:latest
+        ports:
+            - 6379:6379
         networks:
             - app-network
 networks:
