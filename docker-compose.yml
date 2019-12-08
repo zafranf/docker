@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+    web:
+        container_name: web
+        image: nginx:latest
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - /Volumes/DATA/sites:/var/www/html:cached
+            - ./nginx/conf:/etc/nginx/conf.d
+            - ./nginx/ssl:/etc/nginx/ssl
+        links:
+            - php
+        networks:
+            - app-network
+    php:
+        container_name: php
+        build: ./php/
+        volumes:
+            - /Volumes/DATA/sites:/var/www/html:cached
+        links:
+            - mariadb
+        networks:
+            - app-network
+    mariadb:
+        container_name: mariadb
+        image: mariadb:latest
+        ports: 
+            - 3306:3306
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+        networks:
+            - app-network
+networks:
+    app-network:
+        driver: bridge
