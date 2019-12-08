@@ -27,6 +27,9 @@ RUN apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev && \
     pecl install mongodb && \
     docker-php-ext-enable mongodb
 
+# INSTALL supervisor
+RUN apt-get install -y --no-install-recommends --no-install-suggests supervisor
+
 # CLEAR
 RUN apt-get autoremove -y && \
     rm -rf /tmp/*
