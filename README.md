@@ -1,2 +1,9 @@
 # docker
-my simple docker
+my simple docker contains:
+- nginx
+- php
+- mysql
+- composer
+- git
+- mongodb
+- redis
