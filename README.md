@@ -2,8 +2,9 @@
 my simple docker contains:
 - nginx
 - php
+    - composer
+    - git
+    - supervisor
 - mysql
-- composer
-- git
 - mongodb
 - redis
