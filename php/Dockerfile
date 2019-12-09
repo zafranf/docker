@@ -15,7 +15,7 @@ ADD ./conf/php.ini /usr/local/etc/php/conf.d/php.ini
 RUN docker-php-ext-install pdo_mysql
 
 # INSTALL zip ext
-RUN apt-get install -y --no-install-recommends --no-install-suggests libzip-dev zip && \
+RUN apt-get install -y --no-install-recommends --no-install-suggests libzip-dev zip unzip && \
     docker-php-ext-install zip
 
 # INSTALL git
