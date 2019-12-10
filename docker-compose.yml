@@ -13,11 +13,25 @@ services:
             - ./nginx/ssl:/etc/nginx/ssl
         links:
             - php
+            - nodejs
         networks:
             - app-network
     php:
         container_name: php
         build: ./php/
+        volumes:
+            - /Volumes/DATA/sites:/var/www/html:cached
+        links:
+            - mariadb
+            - mongo
+            - redis
+        networks:
+            - app-network
+    nodejs:
+        container_name: nodejs
+        build: ./nodejs/
+        environment:
+            NODE_ENV: development
         volumes:
             - /Volumes/DATA/sites:/var/www/html:cached
         links:
