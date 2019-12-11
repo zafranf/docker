@@ -1,10 +1,14 @@
 # docker
-my simple docker contains:
+my complete docker contains:
 - nginx
 - php
     - composer
     - git
     - supervisor
+    - swoole
+- nodejs
+    - forever
+    - gulp
 - mysql
 - mongodb
 - redis
