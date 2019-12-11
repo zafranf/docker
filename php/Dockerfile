@@ -34,6 +34,14 @@ RUN apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev && \
 # INSTALL supervisor
 RUN apt-get install -y --no-install-recommends --no-install-suggests supervisor
 
-# CLEAR
+# INSTALL swoole ext
+RUN git clone https://github.com/swoole/swoole-src.git -b v4.4.12 && \
+    cd swoole-src && \
+    phpize && \
+    ./configure --enable-openssl && \
+    make && make install && \
+    docker-php-ext-enable swoole
+
+# CLEAN UP
 RUN apt-get autoremove -y && \
     rm -rf /tmp/*
