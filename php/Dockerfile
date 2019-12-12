@@ -2,14 +2,14 @@ FROM php:7.3-fpm
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+# ADD aditional php config
+ADD ./conf/php.ini /usr/local/etc/php/conf.d/php.ini
+
 # UPDATE OS
 RUN apt-get update
 
 # INSTALL apt-utils
 RUN apt-get install -y apt-utils
-
-# ADD aditional php config
-ADD ./conf/php.ini /usr/local/etc/php/conf.d/php.ini
 
 # INSTALL mysql ext
 RUN docker-php-ext-install pdo_mysql
@@ -22,6 +22,14 @@ RUN apt-get install -y --no-install-recommends --no-install-suggests libzip-dev 
 RUN apt-get install -y --no-install-recommends --no-install-suggests libc-client-dev libkrb5-dev && \
     docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
     && docker-php-ext-install imap
+
+# INSTALL swoole ext
+RUN git clone https://github.com/swoole/swoole-src.git -b v4.4.12 && \
+    cd swoole-src && \
+    phpize && \
+    ./configure --enable-openssl && \
+    make && make install && \
+    docker-php-ext-enable swoole
 
 # INSTALL git
 RUN apt-get install -y --no-install-recommends --no-install-suggests git
@@ -39,13 +47,7 @@ RUN apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev && \
 # INSTALL supervisor
 RUN apt-get install -y --no-install-recommends --no-install-suggests supervisor
 
-# INSTALL swoole ext
-RUN git clone https://github.com/swoole/swoole-src.git -b v4.4.12 && \
-    cd swoole-src && \
-    phpize && \
-    ./configure --enable-openssl && \
-    make && make install && \
-    docker-php-ext-enable swoole
+# Add new commands here
 
 # CLEAN UP
 RUN apt-get autoremove -y && \
