@@ -22,8 +22,7 @@ RUN npm install -g forever && \
     mkdir /.forever && \
     chmod -R 777 /.forever
 
-# INSTALL gulp
-RUN npm install -g gulp
+# Add new commands here
 
 # EXPOSE 3000 3001 3002 3003
 
