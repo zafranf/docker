@@ -42,9 +42,9 @@ RUN apt-get install -y --no-install-recommends --no-install-suggests supervisor
 # Add new commands here
 
 
-# ADD aditional php config
-ADD ./conf/php.ini /usr/local/etc/php/conf.d/php.ini
-
 # CLEAN UP
 RUN apt-get autoremove -y && \
     rm -rf /tmp/*
+
+# ADD aditional php config
+ADD ./conf/php.ini /usr/local/etc/php/conf.d/php.ini
