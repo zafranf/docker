@@ -15,11 +15,6 @@ RUN docker-php-ext-install pdo_mysql
 RUN apt-get install -y --no-install-recommends --no-install-suggests libzip-dev zip unzip && \
     docker-php-ext-install zip
 
-# INSTALL imap ext
-RUN apt-get install -y --no-install-recommends --no-install-suggests libc-client-dev libkrb5-dev && \
-    docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
-    && docker-php-ext-install imap
-
 # INSTALL swoole ext
 RUN git clone https://github.com/swoole/swoole-src.git -b v4.4.12 && \
     cd swoole-src && \
@@ -28,6 +23,11 @@ RUN git clone https://github.com/swoole/swoole-src.git -b v4.4.12 && \
     make && make install && \
     docker-php-ext-enable swoole
 
+# INSTALL mongodb ext
+RUN apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev && \
+    pecl install mongodb && \
+    docker-php-ext-enable mongodb
+
 # INSTALL git
 RUN apt-get install -y --no-install-recommends --no-install-suggests git
 
@@ -35,11 +35,6 @@ RUN apt-get install -y --no-install-recommends --no-install-suggests git
 RUN curl -sS https://getcomposer.org/installer | php -- \
     --install-dir=/usr/bin \
     --filename=composer
-
-# INSTALL mongodb ext
-RUN apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev && \
-    pecl install mongodb && \
-    docker-php-ext-enable mongodb
 
 # INSTALL supervisor
 RUN apt-get install -y --no-install-recommends --no-install-suggests supervisor
