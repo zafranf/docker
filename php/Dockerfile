@@ -2,9 +2,6 @@ FROM php:7.3-fpm
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-# ADD aditional php config
-ADD ./conf/php.ini /usr/local/etc/php/conf.d/php.ini
-
 # UPDATE OS
 RUN apt-get update
 
@@ -48,6 +45,9 @@ RUN apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev && \
 RUN apt-get install -y --no-install-recommends --no-install-suggests supervisor
 
 # Add new commands here
+
+# ADD aditional php config
+ADD ./conf/php.ini /usr/local/etc/php/conf.d/php.ini
 
 # CLEAN UP
 RUN apt-get autoremove -y && \
