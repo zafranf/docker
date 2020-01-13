@@ -34,7 +34,8 @@ RUN apt-get install -y --no-install-recommends --no-install-suggests git
 # INSTALL composer
 RUN curl -sS https://getcomposer.org/installer | php -- \
     --install-dir=/usr/bin \
-    --filename=composer
+    --filename=composer && \
+    composer global require hirak/prestissimo
 
 # INSTALL supervisor
 RUN apt-get install -y --no-install-recommends --no-install-suggests supervisor
