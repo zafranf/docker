@@ -11,6 +11,10 @@ RUN apt-get install -y apt-utils
 # INSTALL mysql ext
 RUN docker-php-ext-install pdo_mysql
 
+# INSTALL mysqli ext
+RUN docker-php-ext-install mysqli && \
+    docker-php-ext-enable mysqli
+
 # INSTALL zip ext
 RUN apt-get install -y --no-install-recommends --no-install-suggests libzip-dev zip unzip && \
     docker-php-ext-install zip
